@@ -2,4 +2,8 @@ for spontaneous, at all households sizes
 	lamda=1; eta=1; alpha=.4; beta=.5; d1=d2=gamma=0.1
 	init_spread=1 #initial spreaders percentage
 	
+for article_5h same as above: concentrations [3,2,95]
+
+for only Y contagion: lamda=eta=1 all the rest 0, see limitations of node based
+
 
