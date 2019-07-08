@@ -6,5 +6,5 @@
 *.snm
 *.gz
 *.toc
-.ipynb_check*
+.ipynb_checkpoints/
 
