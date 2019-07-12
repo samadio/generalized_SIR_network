@@ -3,6 +3,9 @@
 
 \usepackage{caption}
 \usepackage{amsmath}
+\usepackage{braket}
+\usepackage{lipsum}
+\usepackage{mwe}
 \title{A generalized SIR and an approach to network}
 \subtitle{Efforts of a newbie}
 \date{Simone Amadio}
@@ -105,7 +108,7 @@ How to update the system? Variation of Gillespie Algorithm:
  	
 		
 	\begin{frame}
-	\title{Chapter 3: Generalization and improvements}
+	\title{Chapter 3: Generalization and attempted improvements}
 	\subtitle{}
 	\date{}
 	\titlepage
@@ -150,14 +153,199 @@ How to update the system? Variation of Gillespie Algorithm:
 
 	\begin{itemize}
 		\item Generalization for multiple non spontaneous transitions.
-		\item Avoid rejection sampling and directly select node using probabilities ($\omega_i/W$).
-		\item Select neighbours according to rates of interaction: this also prevent the problem of independence by rate encountered in the previous slide.
+		\item Avoid rejection sampling and directly select node using probabilities ($\omega_i/W$): execution times are reduced by 40\%.
+		\item Select neighbours according to rates of interaction: this also prevent the problem of independence by rate encountered in previous slides.
 	\end{itemize}
 	\vspace{5 pt}
+	\end{frame}
+
+	
+	\begin{frame}
+	\title{Chapter 4: Verification with fluid approximation and results}
+	\subtitle{}
+	\date{}
+	\titlepage
+	\end{frame}
+
+	
+	\begin{frame}
+	\frametitle{Fluid approximation equations (population model)}
+	
+	$$ \frac{d\rho_x}{dt}=\gamma\,\rho_z+\delta_1\,\rho_y-\braket{k}\,\lambda*\rho_y*\rho_x$$
+	
+	$$ \frac{d \rho_y}{dt}=-(\delta_1+\delta_2)\rho_y+\braket{k}[\beta \rho_z\rho_x-\alpha \rho_y(1-\rho_x)+\lambda\eta\rho_y\rho_x]$$
+	
+	$$ \frac{d\rho_z}{dt}=\delta_2\rho_y-\gamma \rho_z+\braket{k}[\alpha \rho_y(1-\rho_x)-\beta \rho_z\rho_x+\lambda(1-\eta)\rho_y\rho_x]$$
+
+	with $\braket{k}=(house\_size-1)+\frac{houses-1}{houses}$ average degree of all nodes in the graph. It's a good approximation for $house\_size>>houses$
+
+	\end{frame}
+
+	\begin{frame}
+	\frametitle{Results: complete graph}
+	
+	\begin{figure}
+		\centering
+		\begin{minipage}{0.45\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{Generic_2000_agents_1houses.png} % first figure itself
+			\caption*{Simulations}
+		\end{minipage}\hfill
+		\begin{minipage}{0.45\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{Fluid_2000_agents_1houses.png} % second figure itself
+			\caption*{Approximations}
+		\end{minipage}
+	\end{figure}
+	
+	
+	
+	\begin{figure}
+		\centering
+		\begin{minipage}{0.45\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{Generic_500_agents_1houses.png} % first figure itself
+			\caption*{}
+		\end{minipage}\hfill
+		\begin{minipage}{0.45\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{Fluid_500_agents_1houses.png} % second figure itself
+			\caption*{}
+		\end{minipage}
+	\end{figure}
+	
 	
 	\end{frame}
 
+	\begin{frame}
+\frametitle{Results: 100 houses}
 
+\begin{figure}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Generic_2000_agents_100houses.png} % first figure itself
+		\caption*{Simulations}
+	\end{minipage}\hfill
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Fluid_2000_agents_100houses.png} % second figure itself
+		\caption*{Approximations}
+	\end{minipage}
+\end{figure}
+
+
+
+\begin{figure}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Generic_500_agents_100houses.png} % first figure itself
+		\caption*{}
+	\end{minipage}\hfill
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Fluid_500_agents_100houses.png} % second figure itself
+		\caption*{}
+	\end{minipage}
+\end{figure}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Limits of the approximation: complete graph on little N}
+
+\begin{figure}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Generic_10_agents_1houses.png} % first figure itself
+		\caption*{Simulations}
+	\end{minipage}\hfill
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Fluid_10_agents_1houses.png} % second figure itself
+		\caption*{Approximations}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Generic_20_agents_1houses.png} % first figure itself
+		\caption*{}
+	\end{minipage}\hfill
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Fluid_20_agents_1houses.png} % second figure itself
+		\caption*{}
+	\end{minipage}
+\end{figure}
+
+\end{frame}
+
+
+
+
+
+
+
+	\begin{frame}
+
+
+\frametitle{Limits of the approximation: 2 nodes each house}
+
+\begin{figure}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Generic_2000_agents_1000houses.png} % first figure itself
+		\caption*{Simulations}
+	\end{minipage}\hfill
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Fluid_2000_agents_1000houses.png} % second figure itself
+		\caption*{Approximations}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Generic_500_agents_250houses.png} % first figure itself
+		\caption*{}
+	\end{minipage}\hfill
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{Fluid_500_agents_250houses.png} % second figure itself
+		\caption*{}
+	\end{minipage}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\vspace{15pt}
+	\begin{figure}
+		\centering
+		\includegraphics[width=.6\linewidth]{end.png}
+		\caption*{}
+		\label{fig:end}
+	\end{figure}
+	
+	
+	This has been just an introduction. There's a lot more out there.
+	
+	\vspace{10 pt}
+	
+	\centering \textbf{Thank you for your attention}	
+	
+	
+\end{frame}
 	
 	
 \end{document}
